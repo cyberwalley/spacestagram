@@ -1,0 +1,47 @@
+.heart-icon svg {
+  overflow: visible;
+  width: 3rem;
+}
+.heart-icon .heart-background {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  stroke: none;
+  
+}
+.heart-grey {
+  fill: var(--grey) !important;
+
+}
+
+.heart-main path {
+  fill: var(--pink);
+}
+
+
+
+
+.heart-main, .heart-background path {
+  animation: fade-animation 0.5s ease-in-out forwards;
+}
+
+@keyframes fade-animation {
+  0% {
+    fill: transparent;
+    transform: scale(1);
+  }
+  30% {
+    fill: var(--pink);
+    transform: scale(1.1);
+    opacity: 0;
+  }
+
+  70% {
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
