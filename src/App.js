@@ -4,7 +4,8 @@ import {
   Toast,
   Popover,
   Button,
-  DatePicker
+  DatePicker,
+  ActionList
 } from '@shopify/polaris';
 
 import {Header} from './components/Header';
@@ -20,19 +21,38 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
   const [likedImages, setLikedImages] = useState([]);
   const [popoverActive, setPopoverActive] = useState(false);
-  const [{month, year}, setDate] = useState({month: 1, year: 2018});
-  const [selectedDates, setSelectedDates] = useState({
-    start: new Date('Wed Feb 07 2018 00:00:00 GMT-0500 (EST)'),
-    end: new Date('Sat Feb 10 2018 00:00:00 GMT-0500 (EST)'),
+
+  // set current month and year
+  const date = new Date();
+  const currentMonth = date.getMonth();
+  const currentYear = date.getFullYear() 
+  const [{month, year}, setDate] = useState({
+    month: currentMonth,
+    year: currentYear
   });
+  //set current date
+  const today = date.toGMTString()
+  const firstDayOfTheMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+  //week starts from sunday
+  const firstdayOfTheWeek = new Date(date.setDate(date.getDate() - date.getDay())).toGMTString();
+  const [selectedDates, setSelectedDates] = useState({
+    start: new Date(today),
+    end: new Date(today),
+  });
+
+  //helper function for formatting dates
+  function covertDateFormat(newDate) {
+     const covertedDate = newDate.getFullYear() + '-' + (parseInt(newDate.getMonth())+1) + '-' + newDate.getDate();
+     return covertedDate;
+  }
+
   const apiSettings = {
     apiURL: "https://api.nasa.gov/planetary/apod",
     apiKey: "NgYi8bUazwJQRoa0edUHBdYCTZzRwg2QLpUTfaXG",
-    startDate: "2022-01-01",
-    endDate: "2022-01-11"
+    startDate: covertDateFormat(selectedDates.start),
+    endDate: covertDateFormat(selectedDates.end)
   };
   const nasaImageURL = `${apiSettings.apiURL}?api_key=${apiSettings.apiKey}&start_date=${apiSettings.startDate}&end_date=${apiSettings.endDate}`
-  
 
   //pulls images from local storage
   useEffect(() => {
@@ -44,8 +64,7 @@ function App() {
 
   // saves images to local storage
   useEffect(() => {
-    localStorage.setItem('NasaImages', JSON.stringify(likedImages))
-  
+    localStorage.setItem('NasaImages', JSON.stringify(likedImages));
   }, [likedImages])
 
   //callback function to like images
@@ -63,23 +82,19 @@ function App() {
       ]);
       localStorage.setItem('NasaImages', JSON.stringify(likedImages));
     }
-
   }
 
   const togglePopoverActive = () => setPopoverActive((popoverActive) => (!popoverActive));
   const activator = (
     <Button onClick={togglePopoverActive} disclosure>
-      Select a date
+      Select a date range
     </Button>
   );
 
   const handleMonthChange = (month, year) => (setDate({month, year}));
 
-  function fetchError(error) {
-    return <Toast content={error} />
-  }
 
- 
+    //Fetch API Data
     useEffect(() => {
       async function fetchImageData() {
         try {
@@ -95,37 +110,33 @@ function App() {
           } 
         } catch (error) {
           console.log(error)
-          fetchError(error)
         }
       }
       fetchImageData()
     }, [nasaImageURL])
     
-      //loop through data and store in an object
-      const images = imageItems.map(({title, url, date, explanation}) => {
-        return {
-          title: title,
-          imageUrl: url,
-          date: date,
-          description: explanation,
-          isLiked: likedImages.some((image) => image.imageUrl === url)
-          
-        }
-      })
+    //loop through data and store in an object
+    const images = imageItems.map(({title, url, date, explanation}) => {
+      return {
+        title: title,
+        imageUrl: url,
+        date: date,
+        description: explanation,
+        isLiked: likedImages.some((image) => image.imageUrl === url)
+        
+      }
+    })
       
-      const nasaImageMarkup = images.map((image) => {
-        return (
-          <ImageCard key={image.imageUrl} image={image} liked={image.isLiked}
-            likeAction={{
-              onAction: handleLike,
-              content: ({isLiked}) => (isLiked ? "Unlike" : "Like")
-            }}
-          />
-        )
-      })
-
-    
-    
+    const nasaImageMarkup = images.map((image) => {
+      return (
+        <ImageCard key={image.imageUrl} image={image} liked={image.isLiked}
+          likeAction={{
+            onAction: handleLike,
+            content: ({isLiked}) => (isLiked ? "Unlike image" : "Like image")
+          }}
+        />
+      )
+    })
 
 
   return (
@@ -141,14 +152,38 @@ function App() {
           sectioned
           preferredAlignment="left"
         >
+          <ActionList
+          items={[
+            {
+              content: 'Today',
+              onAction: ()=> setSelectedDates({
+                start: new Date(today),
+                end: new Date(today),
+              }),
+            },
+            {
+              content: 'This Week',
+              onAction: ()=> setSelectedDates({
+                start: new Date(firstdayOfTheWeek),
+                end: new Date(today),
+              }),
+            },
+            {
+              content: 'This month',
+              onAction: ()=> setSelectedDates({
+                start: new Date(firstDayOfTheMonth),
+                end: new Date(today),
+              }),
+            },
+          ]}
+        />
           <DatePicker
             month={month}
             year={year}
             onChange={setSelectedDates}
             onMonthChange={handleMonthChange}
             selected={selectedDates}
-            disableDatesBefore={new Date('Sat Feb 03 2018 00:00:00 GMT-0500 (EST)')}
-            disableDatesAfter={new Date('Sun Feb 18 2018 00:00:00 GMT-0500 (EST)')}
+            disableDatesAfter={new Date(today)}
             allowRange
           />
         </Popover>

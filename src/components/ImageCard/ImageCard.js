@@ -7,8 +7,12 @@ import {
   Button,
   Subheading,
   Avatar,
-  Stack
+  Stack,
+  ButtonGroup,
+  Tooltip
 } from '@shopify/polaris';
+
+import {DownloadIcon} from '../DownloadIcon';
 
 import {HeartIcon} from '../HeartIcon'
 
@@ -41,10 +45,27 @@ export const ImageCard = ({image,
         </TextContainer>
       </Card.Section>
       <Card.Section>
-        <Button plain removeUnderline onClick={() => onLikeAction(image)}>
-          <HeartIcon liked={liked} />
-          {buttonLabel(image)}
-        </Button>
+        <ButtonGroup>
+          <Tooltip content={liked ? 'Unlike' : 'Like'}>
+            <Button
+              plain
+              removeUnderline
+              onClick={() => onLikeAction(image)}
+              accessibilityLabel={buttonLabel(image)}>
+              <HeartIcon liked={liked}/>
+            </Button>
+          </Tooltip>
+          <Tooltip content="Download">
+            <Button
+              plain
+              removeUnderline
+              download={imageUrl}
+              url={imageUrl}
+              accessibilityLabel='Download image'>
+              <DownloadIcon />
+            </Button>
+          </Tooltip>
+        </ButtonGroup>
       </Card.Section>
     </Card>
   )

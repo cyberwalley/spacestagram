@@ -1,3 +1,9 @@
 img {
   object-fit: cover;
 }
+.Polaris-Card__Section {
+  border-top: none !important;
+}
+.Polaris-Card {
+  margin-top: 20px;
+}

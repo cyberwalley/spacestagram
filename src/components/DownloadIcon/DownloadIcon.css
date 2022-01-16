@@ -1,0 +1,6 @@
+.download-icon svg {
+  width: 3rem;
+}
+.download-grey {
+  fill: var(--grey) !important;
+}
