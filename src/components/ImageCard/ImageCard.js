@@ -26,7 +26,7 @@ export const ImageCard = ({image,
       <Card.Section>
         <Stack alignment="center">
           <Avatar name="Nasa" source="https://www.nasa.gov/sites/all/themes/custom/nasatwo/images/nasa-logo.svg" />
-          <Heading element="h3">NASA</Heading>
+          <Heading element="h2">NASA</Heading>
         </Stack>
       </Card.Section>
       <Card.Section flush>
@@ -39,7 +39,7 @@ export const ImageCard = ({image,
       </Card.Section>
       <Card.Section>
         <TextContainer>
-          <Heading element="h2">{title}</Heading>
+          <Heading element="h3">{title}</Heading>
           <Subheading element="p">PUBLISHED ON {date}</Subheading>
           <p>{description}</p>
         </TextContainer>
