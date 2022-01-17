@@ -1,3 +1,26 @@
+#Spacestagram: Image-sharing from the final frontier
+For the purposes of this project, Shopify is extending their mission to Make Commerce Better for Everyone to include the whole entire universe. Here's an app to help share photos from one of NASA’s image APIs.
+
+The goal of this project is to do the following:
+
+* Fetch data from one of NASA’s APIs and display the resulting images
+* Display descriptive data for each image
+* Be able to like and unlike an image
+
+### API
+* [Astronomy Picture of the Day (APOD)](https://api.nasa.gov/)
+
+### Design system and react component
+* [Polaris](https://polaris.shopify.com/)
+
+## Screenshots
+<details><summary>Expand</summary><br>
+
+![](https://screenshot.click/16-19-475hw-buh10.jpg)
+
+</details>
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

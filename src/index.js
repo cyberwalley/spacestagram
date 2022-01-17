@@ -7,8 +7,8 @@ import {AppProvider} from '@shopify/polaris';
 
 const theme = {
   logo: {
-    width: 124,
-    topBarSource: `https://cdn.shopify.com/s/files/1/2506/6936/files/shoppies-logo.svg?v=1609786867`,
+    width: 170,
+    topBarSource: `https://cdn.shopify.com/s/files/1/2506/6936/files/spacetagram-logo.svg?v=1642392487`,
     url: '/',
     accessibilityLabel: 'The Shoppies',
   },
