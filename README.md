@@ -1,4 +1,4 @@
-#Spacestagram: Image-sharing from the final frontier
+# Spacestagram: Image-sharing from the final frontier
 For the purposes of this project, Shopify is extending their mission to Make Commerce Better for Everyone to include the whole entire universe. Here's an app to help share photos from one of NASA’s image APIs.
 
 The goal of this project is to do the following:
