@@ -13,7 +13,6 @@ import {
 } from '@shopify/polaris';
 
 import {DownloadIcon} from '../DownloadIcon';
-
 import {HeartIcon} from '../HeartIcon'
 
 export const ImageCard = ({image,

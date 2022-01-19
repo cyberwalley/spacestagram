@@ -1,5 +1,5 @@
 import './Header.css'
-import { TopBar} from "@shopify/polaris"
+import {TopBar} from "@shopify/polaris"
 
 export const Header = () => {
   return (

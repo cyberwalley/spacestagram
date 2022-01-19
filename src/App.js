@@ -13,6 +13,7 @@ import {Footer} from './components/Footer';
 import {ImageCard} from './components/ImageCard';
 import {Skeleton} from './components/Skeleton';
 import {useState, useEffect} from 'react';
+import {covertDateFormat} from './components/HelperFunction'
 
 
 function App() {
@@ -38,13 +39,6 @@ function App() {
     start: new Date(today),
     end: new Date(today),
   });
-
-  //helper function for formatting dates
-  function covertDateFormat(newDate) {
-     const covertedDate = newDate.getFullYear() + '-' + (parseInt(newDate.getMonth())+1) + '-' + newDate.getDate();
-     return covertedDate;
-  }
-
   const apiSettings = {
     apiURL: "https://api.nasa.gov/planetary/apod",
     apiKey: "NgYi8bUazwJQRoa0edUHBdYCTZzRwg2QLpUTfaXG",
@@ -59,7 +53,7 @@ function App() {
     if (localStorageItems) {
       setLikedImages(localStorageItems)
     }
-  }, [setLikedImages])
+  }, [])
 
   // saves images to local storage
   useEffect(() => {
@@ -122,7 +116,6 @@ function App() {
         date: date,
         description: explanation,
         isLiked: likedImages.some((image) => image.imageUrl === url)
-        
       }
     })
       
@@ -148,8 +141,9 @@ function App() {
           activator={activator}
           onClose={togglePopoverActive}
           ariaHaspopup={false}
-          sectioned
+          sectioned={true}
           preferredAlignment="left"
+          fullHeight={true}
         >
           <ActionList
           items={[
