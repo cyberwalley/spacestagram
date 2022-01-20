@@ -1,4 +1,6 @@
 # Spacestagram: Image-sharing from the final frontier
+I currently work in Shopify as a Senior Support Specialist - Plus Front End Developer and this project is done as required for the FED Internship role in Shopify. Since I'm an Internal candidate, you can reach out to me via slack @wale if you have any question. 
+
 For the purposes of this project, Shopify is extending their mission to Make Commerce Better for Everyone to include the whole entire universe. Here's an app to help share photos from one of NASA’s image APIs.
 
 The goal of this project is to do the following:
@@ -6,6 +8,8 @@ The goal of this project is to do the following:
 * Fetch data from one of NASA’s APIs and display the resulting images
 * Display descriptive data for each image
 * Be able to like and unlike an image
+
+You may refer to the project full documentation [here](https://docs.google.com/document/d/1upQYhhsWZI5nvTPyX5t8FwJa3BkVmAFy4HjUNjD1rX4/edit#)
 
 ### API
 * [Astronomy Picture of the Day (APOD)](https://api.nasa.gov/)
