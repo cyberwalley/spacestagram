@@ -19,7 +19,7 @@ export const ImageCard = ({image,
   likeAction: {onAction: onLikeAction, content: buttonLabel},
   liked
 }) => {
-  const {title, imageUrl, date, description} = image;
+  const {title, imageUrl, date, description, mediaType} = image;
   return (
     <Card>
       <Card.Section>
@@ -29,12 +29,16 @@ export const ImageCard = ({image,
         </Stack>
       </Card.Section>
       <Card.Section flush>
-        <Image
+        {mediaType === 'video'?
+          <iframe src={imageUrl} width='100%' height='440' title={title} />
+        :
+          <Image
           source={imageUrl}
           alt='space'
           width={'100%'}
           height={'100%'}
           />
+        }
       </Card.Section>
       <Card.Section>
         <TextContainer>

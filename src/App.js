@@ -24,20 +24,20 @@ function App() {
 
   // set current month and year
   const date = new Date();
-  const currentMonth = date.getMonth();
-  const currentYear = date.getFullYear() 
+  const CURRENT_MONTH = date.getMonth();
+  const CURRENT_YEAR = date.getFullYear() 
   const [{month, year}, setDate] = useState({
-    month: currentMonth,
-    year: currentYear
+    month: CURRENT_MONTH,
+    year: CURRENT_YEAR
   });
   //set current date
-  const today = date.toGMTString()
-  const firstDayOfTheMonth = new Date(date.getFullYear(), date.getMonth(), 1);
+  const TODAY = date.toGMTString()
+  const FIRST_DAY_OF_THE_MONTH = new Date(date.getFullYear(), date.getMonth(), 1);
   //week starts from sunday
-  const firstdayOfTheWeek = new Date(date.setDate(date.getDate() - date.getDay())).toGMTString();
+  const FIRST_DAY_OF_THE_WEEK = new Date(date.setDate(date.getDate() - date.getDay())).toGMTString();
   const [selectedDates, setSelectedDates] = useState({
-    start: new Date(today),
-    end: new Date(today),
+    start: new Date(TODAY),
+    end: new Date(TODAY),
   });
   const apiSettings = {
     apiURL: "https://api.nasa.gov/planetary/apod",
@@ -98,8 +98,7 @@ function App() {
             setIsLoading(() => false);
           })
           if (data) {
-            const filtedImages = data.filter((filterData) => filterData.media_type === 'image')
-            setImageItems(filtedImages);
+            setImageItems(data);
           } 
         } catch (error) {
           console.log(error)
@@ -109,12 +108,13 @@ function App() {
     }, [nasaImageURL])
     
     //loop through data and store in an object
-    const images = imageItems.map(({title, url, date, explanation}) => {
+    const images = imageItems.map(({title, url, date, explanation, media_type}) => {
       return {
         title: title,
         imageUrl: url,
         date: date,
         description: explanation,
+        mediaType: media_type,
         isLiked: likedImages.some((image) => image.imageUrl === url)
       }
     })
@@ -150,22 +150,22 @@ function App() {
             {
               content: 'Today',
               onAction: ()=> setSelectedDates({
-                start: new Date(today),
-                end: new Date(today),
+                start: new Date(TODAY),
+                end: new Date(TODAY),
               }),
             },
             {
               content: 'This Week',
               onAction: ()=> setSelectedDates({
-                start: new Date(firstdayOfTheWeek),
-                end: new Date(today),
+                start: new Date(FIRST_DAY_OF_THE_WEEK),
+                end: new Date(TODAY),
               }),
             },
             {
               content: 'This month',
               onAction: ()=> setSelectedDates({
-                start: new Date(firstDayOfTheMonth),
-                end: new Date(today),
+                start: new Date(FIRST_DAY_OF_THE_MONTH),
+                end: new Date(TODAY),
               }),
             },
           ]}
@@ -176,7 +176,7 @@ function App() {
             onChange={setSelectedDates}
             onMonthChange={handleMonthChange}
             selected={selectedDates}
-            disableDatesAfter={new Date(today)}
+            disableDatesAfter={new Date(TODAY)}
             allowRange
           />
         </Popover>
