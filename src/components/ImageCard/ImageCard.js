@@ -30,7 +30,7 @@ export const ImageCard = ({image,
       </Card.Section>
       <Card.Section flush>
         {mediaType === 'video'?
-          <iframe src={imageUrl} width='100%' height='440' title={title} />
+          <iframe src={imageUrl} width='100%' height='440' title={title} allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen> </iframe>
         :
           <Image
           source={imageUrl}
